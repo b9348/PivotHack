@@ -20,7 +20,7 @@ const scrollToSection = (index: number) => {
     <div class="nav-content">
       <div class="logo-container">
         <img 
-          :src="activeSection === 0 ? '/IntroLogo.png' : '/HomepageLogo.png'" 
+          :src="activeSection === 0 ? '/pivothack/IntroLogo.png' : '/pivothack/HomepageLogo.png'" 
           :alt="activeSection === 0 ? 'Intro Logo' : 'Homepage Logo'" 
           :class="['logo-image', { 'intro-logo': activeSection === 0 }]"
         />
@@ -44,6 +44,7 @@ const scrollToSection = (index: number) => {
   top: 0;
   left: 0;
   right: 0;
+  height: var(--nav-height, 80px);
   background: #000000;
   backdrop-filter: blur(300px);
   z-index: 100;
@@ -70,17 +71,20 @@ const scrollToSection = (index: number) => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
 }
 
 .logo-container {
   display: flex;
   align-items: center;
+  height: 100%;
 }
 
 .logo-image {
   width: 120px;
   height: auto;
   transition: all 0.3s ease;
+  object-fit: contain;
 }
 
 .intro-logo {
@@ -93,6 +97,7 @@ const scrollToSection = (index: number) => {
   overflow-x: auto;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  align-items: center;
 }
 
 .nav-links::-webkit-scrollbar {
@@ -117,9 +122,14 @@ button:hover {
 }
 
 @media (max-width: 768px) {
+  .navbar {
+    height: auto;
+  }
+
   .nav-content {
     flex-direction: column;
     gap: 1rem;
+    padding: 1rem var(--section-padding);
   }
 
   .logo-image {
@@ -127,7 +137,13 @@ button:hover {
   }
 
   .intro-logo {
-    width: 150px;
+    width: 50px;
+  }
+
+  .nav-links {
+    width: 100%;
+    justify-content: center;
+    padding-bottom: 0.5rem;
   }
 }
 </style> 

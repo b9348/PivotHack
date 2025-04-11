@@ -177,6 +177,8 @@ body {
   overflow: hidden;
   margin: 0;
   padding: 0;
+  width: 100vw;
+  height: 100vh;
 }
 
 .app {
@@ -184,17 +186,42 @@ body {
   height: 100vh;
   overflow: hidden;
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .main-content {
+  flex: 1;
   width: 100%;
-  height: 100vh;
+  height: calc(100vh - var(--nav-height, 0px));
   overflow-y: auto;
   overflow-x: hidden;
   scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   position: relative;
+  will-change: transform;
+}
+
+.section {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 2rem;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  will-change: opacity, transform;
+}
+
+.section.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -204,19 +231,8 @@ body {
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .main-content {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
-}
-
-.section {
-  opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-
-.section.active {
-  opacity: 1;
-  transform: translateY(0);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 .section-indicator {
@@ -228,14 +244,17 @@ body {
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  pointer-events: none;
 }
 
 .indicator-item {
   display: flex;
   align-items: center;
   gap: 1rem;
-  opacity: 0.3;
+  opacity: 0;
+  transform: translateX(-10px);
   transition: all 0.5s ease;
+  pointer-events: auto;
 }
 
 .indicator-line {
@@ -250,13 +269,14 @@ body {
   font-size: 0.875rem;
   color: #FFEC03;
   white-space: nowrap;
-  transform: translateX(-1rem);
   opacity: 0;
+  transform: translateX(-1rem);
   transition: all 0.5s ease;
 }
 
 .indicator-item.active {
   opacity: 1;
+  transform: translateX(0);
 }
 
 .indicator-item.active .indicator-line {
