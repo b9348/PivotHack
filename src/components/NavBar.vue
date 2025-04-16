@@ -13,6 +13,9 @@ const scrollToSection = (index: number) => {
   const element = document.querySelectorAll('.section')[index]
   element.scrollIntoView({ behavior: 'smooth' })
 }
+
+// Only show specific sections in nav
+const navSections = ['aspiration', 'support', 'partners']
 </script>
 
 <template>
@@ -27,11 +30,18 @@ const scrollToSection = (index: number) => {
       </div>
       <div class="nav-links">
         <button
-          v-for="(section, index) in sections.slice(1)"
+          v-for="section in sections.filter(s => navSections.includes(s.id))"
           :key="section.id"
-          @click="scrollToSection(index + 1)"
+          @click="scrollToSection(sections.findIndex(s => s.id === section.id))"
+          class="nav-link"
         >
           {{ section.title }}
+        </button>
+        <button
+          @click="scrollToSection(sections.findIndex(s => s.id === 'apply'))"
+          class="apply-button"
+        >
+          现在加入
         </button>
       </div>
     </div>
@@ -93,18 +103,11 @@ const scrollToSection = (index: number) => {
 
 .nav-links {
   display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+  gap: 1.5rem;
   align-items: center;
 }
 
-.nav-links::-webkit-scrollbar {
-  display: none;
-}
-
-button {
+.nav-link {
   background: none;
   border: none;
   color: var(--primary-text);
@@ -116,9 +119,33 @@ button {
   white-space: nowrap;
 }
 
-button:hover {
+.nav-link:hover {
   opacity: 1;
+}
+
+.navbar-intro .nav-link {
+  color: #000000;
+}
+
+.apply-button {
+  background: #FFEC03;
+  color: #000000;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.navbar-intro .apply-button {
+  background: #000000;
   color: #FFEC03;
+}
+
+.apply-button:hover {
+  transform: scale(1.05);
 }
 
 @media (max-width: 768px) {

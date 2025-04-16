@@ -10,66 +10,66 @@ const sections = [
   },
   {
     id: 'aspiration',
-    title: 'Aspiration',
+    title: '这是最好的时代',
     content: {
-      text: 'Our vision for the future of technology and innovation'
+      text: 'AI革命带来的是个人的学习力和生产力的大幅提升。几年前的程序小白，靠着数十个日夜的孤灯奋战才能入门一门开发语言，翻遍社区论坛寻求debug方法，只为呈现一个简陋的网页框架。而如今靠着Cursor和Claude，仅靠自然语言vibe coding就能将碎片化的想法生成为技术方案。现在，产品从0到1的时间甚至只需要按小时计算。在这场技术革命里，每个怀揣火种的普通人都有机会跨过那曾经的技术门槛，将构想和洞察在现实中落地生根。'
     }
   },
   {
     id: 'event-info',
-    title: 'Event Information',
+    title: '让PivotHack成为你的“Aha Moment”',
     content: {
-      time: 'May 23-25',
-      location: 'BNDS',
-      message: 'Join us for an exciting hackathon experience!'
+      time: '5月23-25日',
+      location: '北京市十一学校',
+      message: '我们所需要的，只是一次机会，一次看到另一种生活方式，看到另一种目标的机会，一次尝试新的可能的机会，一次搭建你的梦想的机会。所以，这就是我们正在做的事情——我们将在五月底举办一场「免费」的黑客松，场地在北京市十一学校，我们将招募一批携带着无限的Passion的高中生，一起在一个周末的时间里co-living and co-building，组成小队，在「AI For Good」的主题下搭建一个网站，一个应用，一个小硬件，自己的第一个AI项目。我们欢迎学习平面设计，学习经济商科，学习软硬件开发的你，但更重要的是对「创造」有Passion的你报名我们的活动，一起尝试从循规蹈矩的高中生活中Pivot出来，看到新的一种可'
     }
   },
   {
     id: 'support',
-    title: 'Support & Resources',
+    title: '支持与资源',
     content: {
       items: [
-        'Location: BNDS with food, snacks, and accommodation',
-        'Access to robotics, 3D printer, IoT, and hardware',
-        'Expert-led workshops',
-        'Open & immersive working environment',
-        'FREE participation'
+        '地点：北师大附中，提供餐饮、零食和住宿',
+        '可使用机器人、3D打印机、物联网和硬件设备',
+        '专家指导工作坊',
+        '开放式沉浸工作环境',
+        '免费参与'
       ]
     }
   },
   {
     id: 'schedule',
-    title: 'Schedule',
+    title: '日程安排',
     content: {
-      date: 'May 23-25, BNDS',
+      date: '5月23-25日，北师大附中',
       schedule: [] // To be filled with detailed schedule
     }
   },
   {
     id: 'venue',
-    title: 'Venue',
+    title: '场地',
     content: {
-      name: 'BNDS',
-      description: 'State-of-the-art facilities for innovation'
+      name: '北师大附中',
+      description: '顶尖的创新设施'
     }
   },
   {
     id: 'rewards',
-    title: 'Rewards',
+    title: '奖励',
     content: {
       prizes: [] // To be filled with rewards
     }
   },
   {
     id: 'apply',
-    title: 'Apply Now',
+    title: '立即报名',
     content: {
-      message: 'Limited to 28 participants - secure your spot today!'
+      message: '仅限28名参与者 - 即刻锁定名额！'
     }
   },
   {
     id: 'partners',
-    title: 'Strategic Partners',
+    title: '战略合作伙伴',
     content: {
       partners: [] // To be filled with partner logos
     }
@@ -88,6 +88,7 @@ const handleScroll = () => {
 
     const sectionElements = document.querySelectorAll('.section')
     const scrollPosition = mainContent.scrollTop
+    
     const windowHeight = window.innerHeight
 
     let newActiveSection = 0
