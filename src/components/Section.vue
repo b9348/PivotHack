@@ -15,9 +15,7 @@ const props = defineProps<{
   <section :id="section.id" :class="['section', { active: isActive, 'intro-inverted': section.id === 'intro' }]">
     <div class="section-content">
       <div v-if="section.id === 'intro'" class="intro-section">
-        <img :src="section.content.logo" alt="PivotHack Logo" class="logo" />
-        <h1>{{ section.title }}</h1>
-        <p>{{ section.content.description }}</p>
+        <!-- Empty intro section, only background image -->
       </div>
 
       <div v-else-if="section.id === 'support'" class="support-section">
@@ -60,11 +58,23 @@ const props = defineProps<{
   position: relative;
   background-color: var(--primary-bg);
   color: var(--primary-text);
+  opacity: 1;
+  transform: translateY(0);
+  transition: transform 0.6s ease;
+  will-change: transform;
+}
+
+.section:not(.active):not(#intro) {
+  opacity: 0.1;
+}
+
+.section.active {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .intro-inverted {
-  background-color: #FFEC03 !important;
-  color: #000000 !important;
+  background: transparent !important;
 }
 
 .intro-inverted .intro-section h1,
@@ -86,6 +96,31 @@ const props = defineProps<{
   align-items: center;
   gap: 2rem;
   width: 100%;
+  min-height: 100vh;
+  position: relative;
+}
+
+.intro-section::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url('/PivotHack BG.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  z-index: -1;
+  transform: scale(1.02);
+  transition: transform 0.6s ease;
+}
+
+.section:not(.active) .intro-section::before {
+  transform: scale(0.98);
 }
 
 .intro-section .logo {

@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 import { ref, onMounted, onUnmounted } from 'vue'
 import NavBar from './components/NavBar.vue'
 import Section from './components/Section.vue'
@@ -6,11 +7,6 @@ import Section from './components/Section.vue'
 const sections = [
   {
     id: 'intro',
-    title: 'PivotHack',
-    content: {
-      logo: '/logo.png',
-      description: 'Welcome to PivotHack'
-    }
   },
   {
     id: 'aspiration',
@@ -203,27 +199,6 @@ body {
   will-change: transform;
 }
 
-.section {
-  min-height: 100vh;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 4rem 2rem;
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
-  position: relative;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-  will-change: opacity, transform;
-}
-
-.section.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 /* Hide scrollbar for Chrome, Safari and Opera */
 .main-content::-webkit-scrollbar {
   display: none;
@@ -251,9 +226,9 @@ body {
   display: flex;
   align-items: center;
   gap: 1rem;
-  opacity: 0;
-  transform: translateX(-10px);
-  transition: all 0.5s ease;
+  opacity: 0.1;
+  transform: translateX(0);
+  transition: opacity 0.3s ease;
   pointer-events: auto;
 }
 
@@ -262,7 +237,8 @@ body {
   height: 24px;
   background: #FFEC03;
   transform: scaleY(0.5);
-  transition: transform 0.5s ease;
+  opacity: 0.1;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .indicator-text {
@@ -271,21 +247,21 @@ body {
   white-space: nowrap;
   opacity: 0;
   transform: translateX(-1rem);
-  transition: all 0.5s ease;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .indicator-item.active {
   opacity: 1;
-  transform: translateX(0);
 }
 
 .indicator-item.active .indicator-line {
   transform: scaleY(1);
+  opacity: 1;
 }
 
 .indicator-item.active .indicator-text {
-  transform: translateX(0);
   opacity: 1;
+  transform: translateX(0);
 }
 
 @media (max-width: 1200px) {
