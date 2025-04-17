@@ -1,12 +1,36 @@
 <script setup lang="ts">
-
 import { ref, onMounted, onUnmounted } from 'vue'
 import NavBar from './components/NavBar.vue'
 import Section from './components/Section.vue'
 
-const sections = [
+interface SectionContent {
+  text?: string
+  time?: string
+  location?: string
+  message?: string
+  items?: string[]
+  date?: string
+  schedule?: any[]
+  name?: string
+  description?: string
+  prizes?: any[]
+  partners?: any[]
+  background?: string
+}
+
+interface Section {
+  id: string
+  title: string
+  content: SectionContent
+}
+
+const sections: Section[] = [
   {
     id: 'intro',
+    title: '',
+    content: {
+      background: '/PivotHack BG.png'
+    }
   },
   {
     id: 'aspiration',
@@ -17,11 +41,11 @@ const sections = [
   },
   {
     id: 'event-info',
-    title: '让PivotHack成为你的“Aha Moment”',
+    title: '让PivotHack成为你的"Aha Moment"',
     content: {
       time: '5月23-25日',
       location: '北京市十一学校',
-      message: '我们所需要的，只是一次机会，一次看到另一种生活方式，看到另一种目标的机会，一次尝试新的可能的机会，一次搭建你的梦想的机会。所以，这就是我们正在做的事情——我们将在五月底举办一场「免费」的黑客松，场地在北京市十一学校，我们将招募一批携带着无限的Passion的高中生，一起在一个周末的时间里co-living and co-building，组成小队，在「AI For Good」的主题下搭建一个网站，一个应用，一个小硬件，自己的第一个AI项目。我们欢迎学习平面设计，学习经济商科，学习软硬件开发的你，但更重要的是对「创造」有Passion的你报名我们的活动，一起尝试从循规蹈矩的高中生活中Pivot出来，看到新的一种可'
+      message: '我们所需要的，只是一次机会，一次看到另一种生活方式，看到另一种目标的机会，一次尝试新的可能的机会，一次搭建你的梦想的机会。所以，这就是我们正在做的事情——我们将在五月底举办一场「免费」的黑客松，场地在北京市十一学校，我们将招募一批携带着无限的Passion的高中生，一起在一个周末的时间里co-living and co-building，组成小队，在「AI For Good」的主题下搭建一个网站，一个应用，一个小硬件，自己的第一个AI项目。我们欢迎学习平面设计，学习经济商科，学习软硬件开发的你，但更重要的是对「创造」有Passion的你报名我们的活动，一起尝试从循规蹈矩的高中生活中Pivot出来，看到新的一种可能'
     }
   },
   {
@@ -42,7 +66,7 @@ const sections = [
     title: '日程安排',
     content: {
       date: '5月23-25日，北师大附中',
-      schedule: [] // To be filled with detailed schedule
+      schedule: []
     }
   },
   {
@@ -57,7 +81,7 @@ const sections = [
     id: 'rewards',
     title: '奖励',
     content: {
-      prizes: [] // To be filled with rewards
+      prizes: []
     }
   },
   {
@@ -71,14 +95,12 @@ const sections = [
     id: 'partners',
     title: '战略合作伙伴',
     content: {
-      partners: [] // To be filled with partner logos
+      partners: []
     }
   }
 ]
 
 const activeSection = ref(0)
-
-// Add section titles for the indicator
 const sectionTitles = sections.map(section => section.title)
 
 const handleScroll = () => {
@@ -87,10 +109,6 @@ const handleScroll = () => {
     if (!mainContent) return
 
     const sectionElements = document.querySelectorAll('.section')
-    const scrollPosition = mainContent.scrollTop
-    
-    const windowHeight = window.innerHeight
-
     let newActiveSection = 0
     let minDistance = Infinity
 

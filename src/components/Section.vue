@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
 
-const props = defineProps<{
+defineProps<{
   section: {
     id: string
     title: string
@@ -30,7 +30,14 @@ const props = defineProps<{
       <div v-else-if="section.id === 'apply'" class="apply-section">
         <h2>{{ section.title }}</h2>
         <p class="highlight">{{ section.content.message }}</p>
-        <button class="cta-button">Apply Now</button>
+        <a 
+          href="https://bcnv9gyut9jb.feishu.cn/share/base/form/shrcn9ULf1923cdIW9Xwny4829c" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="cta-button"
+        >
+          立即报名
+        </a>
       </div>
 
       <div v-else class="default-section">
@@ -179,12 +186,12 @@ const props = defineProps<{
 }
 
 .cta-button {
-  padding: 1rem 2rem;
+  padding: 0.6rem 1.8rem;
   font-size: 1.2rem;
   background: #FFEC03;
   color: #000;
   border: none;
-  border-radius: 8px;
+  border-radius: 25px;
   cursor: pointer;
   transition: transform 0.3s ease, background 0.3s ease;
 }

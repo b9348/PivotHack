@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue'
 
-const props = defineProps<{
+defineProps<{
   sections: Array<{
     id: string
     title: string
@@ -15,7 +15,7 @@ const scrollToSection = (index: number) => {
 }
 
 // Only show specific sections in nav
-const navSections = ['aspiration', 'support', 'partners']
+const navSections = ['aspiration', 'event-info', 'support']
 </script>
 
 <template>
@@ -37,12 +37,14 @@ const navSections = ['aspiration', 'support', 'partners']
         >
           {{ section.title }}
         </button>
-        <button
-          @click="scrollToSection(sections.findIndex(s => s.id === 'apply'))"
+        <a
+          href="https://bcnv9gyut9jb.feishu.cn/share/base/form/shrcn9ULf1923cdIW9Xwny4829c"
+          target="_blank"
+          rel="noopener noreferrer"
           class="apply-button"
         >
-          现在加入
-        </button>
+          立即报名
+        </a>
       </div>
     </div>
   </nav>
@@ -131,12 +133,15 @@ const navSections = ['aspiration', 'support', 'partners']
   background: #FFEC03;
   color: #000000;
   border: none;
-  padding: 0.6rem 1rem;
+  padding: 0.45rem 1.5rem;
   border-radius: 25px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
   font-size: 0.9rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
 }
 
 .navbar-intro .apply-button {
