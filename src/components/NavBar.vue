@@ -23,7 +23,7 @@ const navSections = ['aspiration', 'event-info', 'support']
     <div class="nav-content">
       <div class="logo-container">
         <img 
-          :src="activeSection === 0 ? '/pivothack/IntroLogo.png' : '/pivothack/HomepageLogo.png'" 
+          :src="activeSection === 0 ? '/IntroLogo.png' : '/HomepageLogo.png'" 
           :alt="activeSection === 0 ? 'Intro Logo' : 'Homepage Logo'" 
           :class="['logo-image', { 'intro-logo': activeSection === 0 }]"
         />
