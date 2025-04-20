@@ -32,7 +32,7 @@ export default function Section({ section, isActive }: SectionProps) {
     <motion.section
       id={section.id}
       className={`section ${isActive ? 'active' : ''} ${section.id === 'intro' ? 'intro-inverted' : ''}`}
-      initial={{ opacity: 0.1 }}
+      initial={false}
       animate={{ opacity: isActive ? 1 : 0.1 }}
       transition={{ duration: 0.6 }}
     >
@@ -128,6 +128,10 @@ export default function Section({ section, isActive }: SectionProps) {
           transition: transform 0.6s ease, opacity 0.6s ease;
           will-change: transform, opacity;
           flex-shrink: 0;
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+          -webkit-transform-style: preserve-3d;
+          transform-style: preserve-3d;
         }
 
         .cards-section,
@@ -249,20 +253,73 @@ export default function Section({ section, isActive }: SectionProps) {
         }
 
         @media (max-width: 768px) {
+          .section {
+            padding: 2rem 1rem;
+            scroll-snap-align: none;
+            scroll-snap-stop: normal;
+            min-height: auto;
+            opacity: 1 !important;
+            transform: none !important;
+            transition: none !important;
+            animation: none !important;
+            will-change: auto;
+          }
+
+          .section:not(.active):not(#intro) {
+            opacity: 1 !important;
+          }
+
+          .section-content {
+            padding: 0 1rem;
+          }
+
+          :global(.main-content) {
+            scroll-snap-type: none;
+            gap: 4rem;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+          }
+
           .intro-section::after {
             background-size: 260% auto;
-            transform: none;
+            transform: none !important;
             background-position: 48% center;
             background-repeat: no-repeat;
+            transition: none !important;
+            animation: none !important;
+            will-change: auto;
           }
 
-          .section:not(.active) .intro-section::after {
-            transform: scale(0.98);
+          .intro-section h1 {
+            font-size: 3rem;
           }
-        }
 
-        .section:not(.active) .intro-section::after {
-          transform: scale(0.98);
+          h2 {
+            font-size: 2rem;
+          }
+
+          .subtitle {
+            font-size: 1.5rem;
+          }
+
+          .highlight {
+            font-size: 36pt;
+          }
+
+          .cta-button {
+            padding: 0.8rem 2rem;
+            font-size: 1.2rem;
+          }
+
+          #statement .content {
+            font-size: 1.2rem;
+          }
+
+          .default-section {
+            gap: 1rem;
+          }
         }
 
         .intro-section .logo {
@@ -277,22 +334,24 @@ export default function Section({ section, isActive }: SectionProps) {
         }
 
         .highlight {
-          font-size: 36pt;
+          font-size: 48pt;
           font-weight: 600;
           color: #FFEC03;
           text-align: center;
-          text-shadow: 0 0 20px rgba(255, 236, 3, 0.5);
-          animation: pulse 2s ease-in-out infinite;
+          text-shadow: 0 0 20px rgba(255, 236, 3, 0.3);
           line-height: 1.2;
-          margin-bottom: 2rem;
+          margin: 0;
+          animation: glow 3s ease-in-out infinite;
+          -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
         }
 
-        @keyframes pulse {
+        @keyframes glow {
           0%, 100% {
-            text-shadow: 0 0 20px rgba(255, 236, 3, 0.5);
+            text-shadow: 0 0 20px rgba(255, 236, 3, 0.3);
           }
           50% {
-            text-shadow: 0 0 40px rgba(255, 236, 3, 0.8);
+            text-shadow: 0 0 30px rgba(255, 236, 3, 0.5);
           }
         }
 
@@ -324,17 +383,6 @@ export default function Section({ section, isActive }: SectionProps) {
           margin: 0;
         }
 
-        .highlight {
-          font-size: 48pt;
-          font-weight: 600;
-          color: #FFEC03;
-          text-align: center;
-          text-shadow: 0 0 20px rgba(255, 236, 3, 0.5);
-          animation: pulse 2s ease-in-out infinite;
-          line-height: 1.2;
-          margin: 0;
-        }
-
         .content {
           font-size: 1.2rem;
           line-height: 1.8;
@@ -349,45 +397,6 @@ export default function Section({ section, isActive }: SectionProps) {
         #statement .content {
           font-size: 1.5rem;
           color: rgba(255, 255, 255, 0.9);
-        }
-
-        @media (max-width: 768px) {
-          .section {
-            padding: 2rem 1rem;
-          }
-
-          .section-content {
-            padding: 0 1rem;
-          }
-
-          .intro-section h1 {
-            font-size: 3rem;
-          }
-
-          h2 {
-            font-size: 2rem;
-          }
-
-          .subtitle {
-            font-size: 1.5rem;
-          }
-
-          .highlight {
-            font-size: 36pt;
-          }
-
-          .cta-button {
-            padding: 0.8rem 2rem;
-            font-size: 1.2rem;
-          }
-
-          #statement .content {
-            font-size: 1.2rem;
-          }
-
-          .default-section {
-            gap: 1rem;
-          }
         }
 
         .cta-button {
@@ -487,6 +496,12 @@ export default function Section({ section, isActive }: SectionProps) {
 
           .cards-container {
             margin-top: 2rem;
+          }
+
+          .highlight {
+            font-size: 36pt;
+            animation: none;
+            text-shadow: 0 0 15px rgba(255, 236, 3, 0.3);
           }
         }
       `}</style>
