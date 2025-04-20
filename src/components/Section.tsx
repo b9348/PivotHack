@@ -258,15 +258,6 @@ export default function Section({ section, isActive }: SectionProps) {
             scroll-snap-align: none;
             scroll-snap-stop: normal;
             min-height: auto;
-            opacity: 1 !important;
-            transform: none !important;
-            transition: none !important;
-            animation: none !important;
-            will-change: auto;
-          }
-
-          .section:not(.active):not(#intro) {
-            opacity: 1 !important;
           }
 
           .section-content {
@@ -276,20 +267,12 @@ export default function Section({ section, isActive }: SectionProps) {
           :global(.main-content) {
             scroll-snap-type: none;
             gap: 4rem;
-            -webkit-backface-visibility: hidden;
-            backface-visibility: hidden;
-            -webkit-transform-style: preserve-3d;
-            transform-style: preserve-3d;
           }
 
           .intro-section::after {
             background-size: 260% auto;
-            transform: none !important;
             background-position: 48% center;
             background-repeat: no-repeat;
-            transition: none !important;
-            animation: none !important;
-            will-change: auto;
           }
 
           .intro-section h1 {
@@ -306,6 +289,8 @@ export default function Section({ section, isActive }: SectionProps) {
 
           .highlight {
             font-size: 36pt;
+            animation: none;
+            text-shadow: 0 0 15px rgba(255, 236, 3, 0.3);
           }
 
           .cta-button {

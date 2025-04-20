@@ -170,6 +170,7 @@ export default function NavBar({ sections, activeSection }: NavBarProps) {
           text-decoration: none;
           display: inline-flex;
           align-items: center;
+          white-space: nowrap;
         }
 
         .navbar-intro .apply-button {
@@ -186,14 +187,6 @@ export default function NavBar({ sections, activeSection }: NavBarProps) {
         }
 
         @media (max-width: 768px) {
-          .apply-text-desktop {
-            display: none;
-          }
-          
-          .apply-text-mobile {
-            display: inline;
-          }
-
           .navbar {
             height: auto;
           }
@@ -215,8 +208,28 @@ export default function NavBar({ sections, activeSection }: NavBarProps) {
 
           .nav-links {
             width: 100%;
-            justify-content: center;
+            justify-content: flex-start;
+            flex-wrap: wrap;
             padding-bottom: 0.5rem;
+            gap: 0.75rem;
+          }
+
+          .nav-link {
+            padding: 0.4rem 0.8rem;
+            font-size: 0.85rem;
+          }
+
+          .apply-button {
+            padding: 0.4rem 1.2rem;
+            font-size: 0.85rem;
+          }
+
+          .apply-text-desktop {
+            display: none;
+          }
+          
+          .apply-text-mobile {
+            display: inline;
           }
         }
       `}</style>
