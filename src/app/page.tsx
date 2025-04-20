@@ -20,6 +20,7 @@ interface SectionContent {
     answer: string
   }[]
   background?: string
+  message?: string
 }
 
 interface Section {
@@ -37,16 +38,23 @@ const sections: Section[] = [
     }
   },
   {
-    id: 'welcome',
-    title: '5月23日-5月25日，北京十一学校',
+    id: 'statement',
+    title: '',
     content: {
-      subtitle: '用一个周末的时间，从0到1打造出一个真实项目',
-      text: '用一个周末的时间，用一场黑客松的方式，看到高中生的另一种可能'
+      message: '和我们一起，向世界展示中学生的创新力量',
+      text: '北京第一个由高中生自发举办、面向高中生群体的黑客松'
+    }
+  },
+  {
+    id: 'welcome',
+    title: '5月23日-5月25日\t 北京十一学校',
+    content: {
+      text: '用一个周末的时间，从0到1打造出一个真实项目；\n用一场黑客松的方式，看到高中生的另一种可能。'
     }
   },
   {
     id: 'provide',
-    title: '我们提供什么',
+    title: '我们的支持',
     content: {
       cards: [
         {
@@ -61,16 +69,17 @@ const sections: Section[] = [
         {
           title: '资源支持',
           items: [
-            '全程Hack Mentor指导，提供产品/技术/设计/商业化支持',
-            '行业大咖Workshop分享',
-            '免费算力，3D打印和硬件开发支持'
+            '全程导师和学生技术团队指导，提供产品、技术、设计、商业化支持',
+            '行业大咖Workshop分享、学生技术分享',
+            '免费算力，3D打印、硬件开发支持'
           ]
         },
         {
           title: '展示平台',
           items: [
             'Demo Day产品亮相机会',
-            '创投机构，独立开发者，学术大咖评委点评'
+            '创投机构，独立开发者，学术大咖评委点评',
+            '路演日和颁奖典礼，独属于你的展示舞台'
           ]
         }
       ]
@@ -78,28 +87,28 @@ const sections: Section[] = [
   },
   {
     id: 'benefits',
-    title: '你能收获什么',
+    title: '你的收获',
     content: {
       cards: [
         {
           title: '激励和奖品',
           items: [
-            '多种评奖机制',
+            '多种评奖机制，不遗漏你的每个闪光点',
             '万元级别奖金和奖品'
           ]
         },
         {
-          title: '团队和友谊',
+          title: '社区和友谊',
           items: [
             '与小队成员收获亲密战友友谊',
-            '加入参与者社区，和其他优秀的年轻人建立联系，分享项目经验'
+            '加入参与者社区，和其他优秀的高中生建立联系，分享项目经验，畅想未来'
           ]
         },
         {
           title: '原创的项目',
           items: [
             '收获一个从0到1的可用产品',
-            '孵化器和hackathons内推资源，支持继续迭代产品并推向市场'
+            '孵化器和 PivotHack 内推资源，支持继续迭代产品并推向市场'
           ]
         }
       ]
@@ -107,7 +116,7 @@ const sections: Section[] = [
   },
   {
     id: 'faq',
-    title: 'FAQ',
+    title: '常见问题',
     content: {
       faqItems: [
         {
@@ -139,17 +148,38 @@ const sections: Section[] = [
   },
   {
     id: 'apply',
-    title: '立即报名',
+    title: '加入我们',
     content: {
       text: '和我们一起，向世界展示中学生的创新力量'
     }
   }
 ]
 
+const getSidebarTitle = (id: string) => {
+  switch (id) {
+    case 'intro':
+      return '';
+    case 'statement':
+      return '我们的愿景';
+    case 'welcome':
+      return '活动信息';
+    case 'provide':
+      return '我们的支持';
+    case 'benefits':
+      return '你的收获';
+    case 'faq':
+      return '常见问题';
+    case 'apply':
+      return '加入我们';
+    default:
+      return '';
+  }
+}
+
 export default function Home() {
   const [activeSection, setActiveSection] = useState(0)
   const [isScrolling, setIsScrolling] = useState(false)
-  const sectionTitles = sections.map(section => section.title)
+  const sectionTitles = sections.map(section => getSidebarTitle(section.id))
 
   useEffect(() => {
     const handleScroll = () => {

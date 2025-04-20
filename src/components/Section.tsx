@@ -46,18 +46,35 @@ export default function Section({ section, isActive }: SectionProps) {
             <h2>{section.title}</h2>
             <div className="cards-container">
               {section.content.cards.map((card, index) => (
-                <FlipCard
-                  key={index}
-                  title={card.title}
-                  isVisible={isActive}
-                  isLast={index === section.content.cards!.length - 1}
-                >
-                  <ul>
-                    {card.items.map((item, itemIndex) => (
-                      <li key={itemIndex}>{item}</li>
-                    ))}
-                  </ul>
-                </FlipCard>
+                <>
+                  <div className="desktop-only">
+                    <FlipCard
+                      key={index}
+                      title={card.title}
+                      isVisible={isActive}
+                      isLast={index === section.content.cards!.length - 1}
+                    >
+                      <ul>
+                        {card.items.map((item, itemIndex) => (
+                          <li key={itemIndex}>{item}</li>
+                        ))}
+                      </ul>
+                    </FlipCard>
+                  </div>
+                  <div className="mobile-only">
+                    <div className="mobile-card">
+                      <h3>{card.title}</h3>
+                      <ul>
+                        {card.items.map((item, itemIndex) => (
+                          <li key={itemIndex}>{item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                    {index < section.content.cards!.length - 1 && (
+                      <div className="mobile-separator" />
+                    )}
+                  </div>
+                </>
               ))}
             </div>
           </div>
@@ -72,22 +89,24 @@ export default function Section({ section, isActive }: SectionProps) {
             {section.content.subtitle && (
               <h3 className="subtitle">{section.content.subtitle}</h3>
             )}
-            <div className="content">
-              {section.content.text && <p>{section.content.text}</p>}
-              {section.content.message && (
-                <p className="highlight">{section.content.message}</p>
-              )}
-              {section.id === 'apply' && (
-                <a
-                  href="https://bcnv9gyut9jb.feishu.cn/share/base/form/shrcn9ULf1923cdIW9Xwny4829c"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="cta-button"
-                >
-                  立即报名
-                </a>
-              )}
-            </div>
+            {section.content.message && (
+              <p className="highlight">{section.content.message}</p>
+            )}
+            {section.content.text && (
+              <div className="content">
+                <p>{section.content.text}</p>
+              </div>
+            )}
+            {section.id === 'apply' && (
+              <a
+                href="https://bcnv9gyut9jb.feishu.cn/share/base/form/shrcn9ULf1923cdIW9Xwny4829c"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cta-button"
+              >
+                立即报名
+              </a>
+            )}
           </div>
         )}
       </div>
@@ -131,6 +150,26 @@ export default function Section({ section, isActive }: SectionProps) {
           color: rgba(255, 255, 255, 0.9);
           margin: 1rem 0 2rem;
           font-weight: 500;
+        }
+
+        .desktop-only {
+          display: block;
+          flex: 1;
+          min-width: 0;
+        }
+
+        .mobile-only {
+          display: none;
+        }
+
+        @media (min-width: 1201px) {
+          .cards-container {
+            gap: 0;
+          }
+
+          .desktop-only {
+            flex: 1 1 0;
+          }
         }
 
         @media (max-width: 1200px) {
@@ -186,17 +225,43 @@ export default function Section({ section, isActive }: SectionProps) {
           bottom: 0;
           width: 100vw;
           height: 100vh;
+          background: #FFEC03;
+          z-index: -2;
+        }
+
+        .intro-section::after {
+          content: '';
+          position: fixed;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          width: 100vw;
+          height: 100vh;
           background-image: url('/PivotHack BG.png');
           background-size: cover;
           background-position: center;
           background-repeat: no-repeat;
           background-attachment: fixed;
           z-index: -1;
-          transform: scale(1.02);
+          transform: scale(1);
           transition: transform 0.6s ease;
         }
 
-        .section:not(.active) .intro-section::before {
+        @media (max-width: 768px) {
+          .intro-section::after {
+            background-size: 260% auto;
+            transform: none;
+            background-position: 48% center;
+            background-repeat: no-repeat;
+          }
+
+          .section:not(.active) .intro-section::after {
+            transform: scale(0.98);
+          }
+        }
+
+        .section:not(.active) .intro-section::after {
           transform: scale(0.98);
         }
 
@@ -212,12 +277,14 @@ export default function Section({ section, isActive }: SectionProps) {
         }
 
         .highlight {
-          font-size: 2rem;
+          font-size: 36pt;
           font-weight: 600;
           color: #FFEC03;
           text-align: center;
           text-shadow: 0 0 20px rgba(255, 236, 3, 0.5);
           animation: pulse 2s ease-in-out infinite;
+          line-height: 1.2;
+          margin-bottom: 2rem;
         }
 
         @keyframes pulse {
@@ -233,14 +300,104 @@ export default function Section({ section, isActive }: SectionProps) {
           color: #000000;
         }
 
+        .default-section {
+          max-width: 800px;
+          margin: 0 auto;
+          width: 100%;
+          position: relative;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1.5rem;
+        }
+
+        h2 {
+          font-size: 2.5rem;
+          font-weight: 600;
+          margin: 0;
+        }
+
+        .subtitle {
+          font-size: 1.8rem;
+          color: rgba(255, 255, 255, 0.9);
+          font-weight: 500;
+          margin: 0;
+        }
+
+        .highlight {
+          font-size: 48pt;
+          font-weight: 600;
+          color: #FFEC03;
+          text-align: center;
+          text-shadow: 0 0 20px rgba(255, 236, 3, 0.5);
+          animation: pulse 2s ease-in-out infinite;
+          line-height: 1.2;
+          margin: 0;
+        }
+
+        .content {
+          font-size: 1.2rem;
+          line-height: 1.8;
+          white-space: pre-line;
+          text-align: center;
+        }
+
+        .content p {
+          margin: 0;
+        }
+
+        #statement .content {
+          font-size: 1.5rem;
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        @media (max-width: 768px) {
+          .section {
+            padding: 2rem 1rem;
+          }
+
+          .section-content {
+            padding: 0 1rem;
+          }
+
+          .intro-section h1 {
+            font-size: 3rem;
+          }
+
+          h2 {
+            font-size: 2rem;
+          }
+
+          .subtitle {
+            font-size: 1.5rem;
+          }
+
+          .highlight {
+            font-size: 36pt;
+          }
+
+          .cta-button {
+            padding: 0.8rem 2rem;
+            font-size: 1.2rem;
+          }
+
+          #statement .content {
+            font-size: 1.2rem;
+          }
+
+          .default-section {
+            gap: 1rem;
+          }
+        }
+
         .cta-button {
-          padding: 1rem 3rem;
+          padding: 0.85rem 2.75rem;
           font-size: 1.5rem;
           font-weight: 600;
           background: #FFEC03;
           color: #000;
           border: none;
-          border-radius: 30px;
+          border-radius: 45px;
           cursor: pointer;
           transition: all 0.3s ease;
           text-decoration: none;
@@ -266,13 +423,13 @@ export default function Section({ section, isActive }: SectionProps) {
           border-radius: 32px;
         }
 
-        .cta-button:hover::before {
-          opacity: 1;
-        }
-
         .cta-button:hover {
           transform: scale(1.05);
           box-shadow: 0 0 30px rgba(255, 236, 3, 0.5);
+        }
+
+        .cta-button:hover::before {
+          opacity: 0.8;
         }
 
         @keyframes glowing {
@@ -287,86 +444,49 @@ export default function Section({ section, isActive }: SectionProps) {
           }
         }
 
-        .default-section {
-          max-width: 800px;
-          margin: 0 auto;
-          width: 100%;
-          position: relative;
+        .mobile-card {
+          padding: 1.5rem;
+          text-align: left;
         }
 
-        .default-section:has(.cta-button) {
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          gap: 2rem;
-        }
-
-        .default-section:has(.cta-button)::before {
-          content: '';
-          position: absolute;
-          inset: -100px;
-          background: radial-gradient(
-            circle at center,
-            rgba(255, 236, 3, 0.15) 0%,
-            rgba(255, 99, 71, 0.15) 25%,
-            rgba(255, 0, 255, 0.15) 50%,
-            rgba(0, 255, 255, 0.15) 75%,
-            rgba(255, 236, 3, 0.15) 100%
-          );
-          filter: blur(20px);
-          opacity: 0.5;
-          animation: glow 10s linear infinite;
-          z-index: -1;
-        }
-
-        @keyframes glow {
-          0% {
-            transform: rotate(0deg);
-          }
-          100% {
-            transform: rotate(360deg);
-          }
-        }
-
-        h2 {
-          font-size: 2.5rem;
-          margin-bottom: 2rem;
+        .mobile-card h3 {
+          font-size: 1.5rem;
           font-weight: 600;
+          color: #FFEC03;
+          margin-bottom: 1rem;
         }
 
-        .content {
-          font-size: 1.2rem;
-          line-height: 1.8;
+        .mobile-card ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        .mobile-card li {
+          margin-bottom: 0.75rem;
+          font-size: 1rem;
+          line-height: 1.6;
+          color: rgba(255, 255, 255, 0.9);
+        }
+
+        .mobile-separator {
+          height: 1px;
+          background: rgba(255, 236, 3, 0.3);
+          margin: 2rem 0;
+          width: 100%;
         }
 
         @media (max-width: 768px) {
-          .section {
-            padding: 2rem 1rem;
+          .desktop-only {
+            display: none;
           }
 
-          .section-content {
-            padding: 0 1rem;
+          .mobile-only {
+            display: block;
           }
 
-          .intro-section h1 {
-            font-size: 3rem;
-          }
-
-          h2 {
-            font-size: 2rem;
-          }
-
-          .content {
-            font-size: 1rem;
-          }
-
-          .highlight {
-            font-size: 1.5rem;
-          }
-
-          .cta-button {
-            padding: 0.8rem 2rem;
-            font-size: 1.2rem;
+          .cards-container {
+            margin-top: 2rem;
           }
         }
       `}</style>

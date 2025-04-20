@@ -11,9 +11,26 @@ interface NavBarProps {
   activeSection: number
 }
 
-const navSections = ['aspiration', 'event-info', 'support']
+const navSections = ['statement', 'welcome', 'provide', 'benefits', 'faq']
 
 export default function NavBar({ sections, activeSection }: NavBarProps) {
+  const getNavTitle = (id: string) => {
+    switch (id) {
+      case 'statement':
+        return '愿景';
+      case 'welcome':
+        return '简介';
+      case 'provide':
+        return '支持';
+      case 'benefits':
+        return '收获';
+      case 'faq':
+        return 'FAQ';
+      default:
+        return '';
+    }
+  }
+
   const scrollToSection = useCallback((index: number) => {
     const element = document.querySelectorAll('.section')[index]
     element?.scrollIntoView({ behavior: 'smooth', block: 'center' })
@@ -44,7 +61,7 @@ export default function NavBar({ sections, activeSection }: NavBarProps) {
                 onClick={() => scrollToSection(sections.findIndex(s => s.id === section.id))}
                 className="nav-link"
               >
-                {section.title}
+                {getNavTitle(section.id)}
               </button>
             ))}
           <a
@@ -53,7 +70,8 @@ export default function NavBar({ sections, activeSection }: NavBarProps) {
             rel="noopener noreferrer"
             className="apply-button"
           >
-            立即报名
+            <span className="apply-text-desktop">立即报名</span>
+            <span className="apply-text-mobile">报名</span>
           </a>
         </div>
       </div>
@@ -163,7 +181,19 @@ export default function NavBar({ sections, activeSection }: NavBarProps) {
           transform: scale(1.05);
         }
 
+        .apply-text-mobile {
+          display: none;
+        }
+
         @media (max-width: 768px) {
+          .apply-text-desktop {
+            display: none;
+          }
+          
+          .apply-text-mobile {
+            display: inline;
+          }
+
           .navbar {
             height: auto;
           }

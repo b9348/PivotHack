@@ -55,6 +55,13 @@ export default function FlipCard({ title, children, isVisible, isLast }: FlipCar
           flex-direction: column;
         }
 
+        @media (max-width: 768px) {
+          :global(.flip-card) {
+            min-height: 300px;
+            padding: 1.5rem;
+          }
+        }
+
         :global(.flip-card-inner) {
           height: 100%;
           display: flex;
