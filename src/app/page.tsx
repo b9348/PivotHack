@@ -38,14 +38,6 @@ const sections: Section[] = [
     }
   },
   {
-    id: 'statement',
-    title: '',
-    content: {
-      message: '和我们一起，向世界展示中学生的创新力量',
-      text: '北京第一个由高中生自发举办、面向高中生群体的黑客松'
-    }
-  },
-  {
     id: 'welcome',
     title: '5月23日-5月25日\t 北京十一学校',
     content: {

@@ -1,4 +1,4 @@
-// File: /Users/jasonchen/Desktop/Developer/TempPivot/PivotHack/src/app/layout.tsx
+// File: /Users/jasonchen/Desktop/DCTO Apex G11/PivotHack/temp/PivotHack/src/app/layout.tsx
 import * as entry from '../../../src/app/layout.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

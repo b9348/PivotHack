@@ -11,7 +11,7 @@ interface NavBarProps {
   activeSection: number
 }
 
-const navSections = ['statement', 'welcome', 'provide', 'benefits', 'faq']
+const navSections = ['welcome', 'provide', 'benefits', 'faq']
 
 export default function NavBar({ sections, activeSection }: NavBarProps) {
   const getNavTitle = (id: string) => {
