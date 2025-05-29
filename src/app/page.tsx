@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import NavBar from '@/components/NavBar'
 import Section from '@/components/Section'
+import CarouselSection from '@/components/CarouselSection'
 import FlipCard from '@/components/FlipCard'
 import FAQ from '@/components/FAQ'
 
@@ -21,13 +22,32 @@ interface SectionContent {
   }[]
   background?: string
   message?: string
+  images?: string[]
 }
 
 interface Section {
   id: string
   title: string
   content: SectionContent
+  type?: string
 }
+
+// 实际项目图片数组
+const images = [
+  '/swiper/DSCF8984-min.JPG',
+  '/swiper/DSCF8989-min.JPG',
+  '/swiper/DSCF9032-min.JPG',
+  '/swiper/DSC_0008-min.JPG',
+  '/swiper/DSC_0022-min.JPG',
+  '/swiper/DSC_0025-min.JPG',
+  '/swiper/DSC_0056-min.JPG',
+  '/swiper/DSC_0088-min.JPG',
+  '/swiper/DSC_0132-min.JPG',
+  '/swiper/DSC_0140-min.JPG',
+  '/swiper/DSC_0177-min.JPG',
+  '/swiper/DSC_0269-min.JPG',
+  '/swiper/DSC_9867-min.JPG',
+];
 
 const sections: Section[] = [
   {
@@ -42,6 +62,16 @@ const sections: Section[] = [
     title: '5月23日-5月25日\t 北京十一学校',
     content: {
       text: '用一个周末的时间，从0到1打造出一个真实项目；\n用一场黑客松的方式，看到高中生的另一种可能。'
+    }
+  },
+  {
+    id: 'carousel',
+    title: '精彩瞬间',
+    type: 'carousel',
+    content: {
+      subtitle: '探索创新，发现无限可能',
+      text: '通过沉浸式创新体验，展现中学生的创造力与技术潜能',
+      images: images
     }
   },
   {
@@ -155,6 +185,8 @@ const getSidebarTitle = (id: string) => {
       return '我们的愿景';
     case 'welcome':
       return '活动信息';
+    case 'carousel':
+      return '精彩瞬间';
     case 'provide':
       return '我们的支持';
     case 'benefits':
@@ -251,11 +283,19 @@ export default function Home() {
       <main className={`main-content ${isScrolling ? 'scrolling' : ''}`}>
         <AnimatePresence>
           {sections.map((section, index) => (
-            <Section
-              key={section.id}
-              section={section}
-              isActive={index === activeSection}
-            />
+            section.type === 'carousel' ? (
+              <CarouselSection
+                key={section.id}
+                section={section as any}
+                isActive={index === activeSection}
+              />
+            ) : (
+              <Section
+                key={section.id}
+                section={section}
+                isActive={index === activeSection}
+              />
+            )
           ))}
         </AnimatePresence>
       </main>

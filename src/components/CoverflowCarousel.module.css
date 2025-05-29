@@ -1,0 +1,192 @@
+.coverflowContainer {
+  position: relative;
+  width: 100%;
+  height: 450px;
+  overflow: hidden;
+  perspective: 1200px;
+  user-select: none;
+  contain: layout style paint;
+}
+
+.carouselViewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-style: preserve-3d;
+  will-change: transform;
+  contain: strict;
+  z-index: 1;
+}
+
+.slide {
+  position: absolute;
+  width: 50%;
+  max-width: 600px;
+  height: 80%;
+  cursor: pointer;
+  transition: transform 0.5s ease, opacity 0.5s ease, filter 0.5s ease, box-shadow 0.5s ease, border-color 0.3s ease;
+  transform-origin: center center;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  will-change: transform, opacity;
+  border: 2px solid transparent;
+  contain: content;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.slide::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 70%, rgba(0, 0, 0, 0.5) 100%);
+  z-index: 1;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.activeSlide {
+  z-index: 20;
+  cursor: default;
+  border-color: rgba(255, 236, 3, 0.8);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3), 0 0 15px rgba(255, 236, 3, 0.5);
+}
+
+.activeSlide::before {
+  opacity: 0.3;
+}
+
+.slideImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  pointer-events: none;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* 导航按钮样式 */
+.navButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 100;
+  opacity: 0.5;
+  transition: all 0.3s ease;
+}
+
+.navButton:hover {
+  opacity: 0.9;
+  background-color: rgba(255, 236, 3, 0.9);
+  color: #000;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.navButton:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 236, 3, 0.5);
+}
+
+.prevButton {
+  left: 20px;
+}
+
+.nextButton {
+  right: 20px;
+}
+
+/* 分页指示器样式 */
+.paginationDots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  z-index: 100;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 8px 15px;
+  border-radius: 30px;
+}
+
+.paginationDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.activeDot {
+  background-color: #FFEC03;
+  transform: scale(1.2);
+  box-shadow: 0 0 6px 1px rgba(255, 236, 3, 0.6);
+}
+
+/* 提高性能的媒体查询 */
+@media (prefers-reduced-motion: reduce) {
+  .slide {
+    transition: none;
+  }
+  
+  .navButton, .paginationDot {
+    transition: none;
+  }
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .coverflowContainer {
+    height: 350px;
+  }
+  
+  .slide {
+    width: 80%;
+  }
+  
+  .navButton {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .prevButton {
+    left: 10px;
+  }
+  
+  .nextButton {
+    right: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .coverflowContainer {
+    height: 300px;
+  }
+  
+  .slide {
+    width: 90%;
+  }
+} 

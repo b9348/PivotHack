@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import FlipCard from './FlipCard'
 import FAQ from './FAQ'
+import React from 'react'
 
 interface SectionContent {
   text?: string
@@ -46,7 +47,7 @@ export default function Section({ section, isActive }: SectionProps) {
             <h2>{section.title}</h2>
             <div className="cards-container">
               {section.content.cards.map((card, index) => (
-                <>
+                <React.Fragment key={`card-${index}`}>
                   <div className="desktop-only">
                     <FlipCard
                       key={index}
@@ -74,7 +75,7 @@ export default function Section({ section, isActive }: SectionProps) {
                       <div className="mobile-separator" />
                     )}
                   </div>
-                </>
+                </React.Fragment>
               ))}
             </div>
           </div>
